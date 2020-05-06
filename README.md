@@ -24,6 +24,7 @@ curl -u admin:password -X POST http://localhost:8080/api/v2/job_templates/11/lau
      --data @awx-config.json -H "Content-Type: application/json"  | jq
 ```
 
+Fichier awx-config.json :
 
 ```json
 {
