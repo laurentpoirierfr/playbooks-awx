@@ -20,7 +20,8 @@ curl -u admin:password -X GET http://localhost:8080/api/v2/job_templates/ | jq
 
 curl -u admin:password -X GET http://localhost:8080/api/v2/job_templates/11/ | jq
 
-curl -u admin:password -X POST http://localhost:8080/api/v2/job_templates/11/launch/ --data @awx-config.json -H "Content-Type: application/json"  | jq
+curl -u admin:password -X POST http://localhost:8080/api/v2/job_templates/11/launch/ \
+     --data @awx-config.json -H "Content-Type: application/json"  | jq
 ```
 
 
