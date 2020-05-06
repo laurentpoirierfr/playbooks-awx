@@ -1,6 +1,6 @@
-- name: Hello World Sample
+- name: Deploy App
   hosts: all
   tasks:
-    - name: Hello Message
+    - name: Deploy App
       debug:
-        msg: "{{ var_message }}"
+        msg: "Déploiement de ma version {{ version }}, avec le profil : {{ profil }}"
