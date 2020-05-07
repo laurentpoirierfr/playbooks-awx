@@ -1,0 +1,6 @@
+- name: Deploy App
+  hosts: all
+  tasks:
+    - name: Deploy App
+      debug:
+        msg: "Déploiement de ma version {{ version }}, avec le profil : {{ profil }}"
