@@ -1,4 +1,5 @@
 {
+    "inventory": 2,
     "extra_vars": {
         "profil": "develop",
         "version": "0.0.2-SNAPSHOT"

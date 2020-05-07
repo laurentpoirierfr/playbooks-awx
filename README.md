@@ -1,5 +1,12 @@
 # playbooks-awx
 
+### Ré&férences 
+
+
+* https://docs.ansible.com/ansible-tower/latest/html/towerapi/api_ref.html#/
+* https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html
+
+
 ### Liste des api :
 
 ```bash
@@ -30,7 +37,12 @@ Fichier awx-config.json :
 {
     "extra_vars": {
         "profil": "develop",
-        "version": "0.0.2-SNAPSHOT"
+        "version": "0.0.2-SNAPSHOT",
+        "inventory_needed_to_start": "true"
     }
 }
 ```
+
+### Liste des inventaires
+
+curl -u admin:password -X GET http://localhost:8080/api/v2/inventories/ | jq
