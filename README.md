@@ -1,6 +1,6 @@
 # playbooks-awx
 
-### Ré&férences 
+### Références 
 
 * https://github.com/ansible/awx
 * https://docs.ansible.com/ansible-tower/latest/html/towerapi/api_ref.html#/
