@@ -31,14 +31,14 @@ curl -u admin:password -X POST http://localhost:8080/api/v2/job_templates/11/lau
      --data @awx-config.json -H "Content-Type: application/json"  | jq
 ```
 
-Fichier awx-config.json :
+### Fichier awx-config.json
 
 ```json
 {
+    "inventory": 2,
     "extra_vars": {
         "profil": "develop",
-        "version": "0.0.2-SNAPSHOT",
-        "inventory_needed_to_start": "true"
+        "version": "0.0.2-SNAPSHOT"
     }
 }
 ```
