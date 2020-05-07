@@ -6,6 +6,10 @@
 * https://docs.ansible.com/ansible-tower/latest/html/towerapi/api_ref.html#/
 * https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html
 
+Interfaçage avec gitlab
+
+* https://baptiste.bouchereau.pro/tutorial/setup-awx-with-gitlab/
+
 
 ### Liste des api :
 
