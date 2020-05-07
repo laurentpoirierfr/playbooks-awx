@@ -45,4 +45,7 @@ curl -u admin:password -X POST http://localhost:8080/api/v2/job_templates/11/lau
 
 ### Liste des inventaires
 
+```bash
 curl -u admin:password -X GET http://localhost:8080/api/v2/inventories/ | jq
+```
+
