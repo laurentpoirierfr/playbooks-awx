@@ -1,0 +1,10 @@
+[
+    {
+        "vhost": "develop",
+        "exchange": "myexchange.test.message"
+    },
+    {
+        "vhost": "develop",
+        "exchange": "myexchange.test.autre"
+    }
+]

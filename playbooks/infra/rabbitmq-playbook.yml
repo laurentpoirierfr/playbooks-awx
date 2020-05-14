@@ -1,0 +1,85 @@
+---
+  - hosts: localhost
+    connection: local
+    vars:
+      rabbitmq_api_uri: http://localhost:15672/api
+      rabbitmq_login: guest
+      rabbitmq_password: guest
+      default_profil: "dev"
+
+    tasks:
+      - name: Read a json file
+        set_fact:
+          vhosts_list: "{{ lookup('file', './json/sys-vhosts.json') }}"
+          exchanges_list:  "{{ lookup('file', './json/sys-exchanges.json') }}"
+          users_list: "{{ lookup('file', './json/users-{{ default_profil }}.json') }}"
+          users_perms_list: "{{ lookup('file', './json/users-perms.json') }}"
+
+      - name: What did we read?
+        debug:
+          var: vhosts_list
+
+      - name: Affichage
+        command: "echo {{ item.username }} ==> {{ item.password }}"
+        with_items: "{{ users_list }}"
+
+      - name: Create vhosts
+        uri:
+          url: "{{ rabbitmq_api_uri }}/vhosts/{{ item }}"
+          user: "{{ rabbitmq_login }}"
+          password: "{{ rabbitmq_password }}"
+          method: PUT
+          force_basic_auth: yes
+          status_code: 
+            - 204
+            - 201
+        with_items: "{{ vhosts_list }}"
+
+      - name: Create exchanges
+        uri:
+          url: "{{ rabbitmq_api_uri }}/exchanges/{{ item.vhost }}/{{ item.exchange }}"
+          user: "{{ rabbitmq_login }}"
+          password: "{{ rabbitmq_password }}"
+          method: PUT
+          force_basic_auth: yes
+          body_format: json
+          body: 
+            type: "topic"
+            durable: true
+          status_code: 
+            - 204
+            - 201
+        with_items: "{{ exchanges_list }}"        
+
+      - name: Create users
+        uri:
+          url: "{{ rabbitmq_api_uri }}/users/{{ item.username }}"
+          user: "{{ rabbitmq_login }}"
+          password: "{{ rabbitmq_password }}"
+          method: PUT
+          force_basic_auth: yes
+          body_format: json
+          body: 
+            password: "{{ item.password }}"
+            tags: "{{ item.tags }}"
+          status_code: 
+            - 204
+            - 201
+        with_items: "{{ users_list }}"       
+
+      - name: Create users perms
+        uri:
+          url: "{{ rabbitmq_api_uri }}/permissions/{{ item.vhost }}/{{ item.username }}"
+          user: "{{ rabbitmq_login }}"
+          password: "{{ rabbitmq_password }}"
+          method: PUT
+          force_basic_auth: yes
+          body_format: json
+          body: 
+            configure: "{{ item.configure }}"
+            write: "{{ item.write }}"
+            read: "{{ item.read }}"       
+          status_code: 
+            - 204
+            - 201
+        with_items: "{{ users_perms_list }}"            

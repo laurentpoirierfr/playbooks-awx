@@ -1,0 +1,12 @@
+[
+    {
+        "username": "xadmin",
+        "password": "xadmin",
+        "tags": "administrator"
+    },
+    {
+        "username": "user2",
+        "password": "user2",
+        "tags": "manager"
+    }
+]

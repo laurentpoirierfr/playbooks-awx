@@ -1,0 +1,23 @@
+[
+    {
+        "username": "xadmin",
+        "vhost": "%2F",
+        "configure": ".*",
+        "write": ".*",
+        "read": ".*"
+    },
+    {
+        "username": "xadmin",
+        "vhost": "develop",
+        "configure": ".*",
+        "write": ".*",
+        "read": ".*"
+    },
+    {
+        "username": "user2",
+        "vhost": "develop",
+        "configure": ".*",
+        "write": ".*",
+        "read": ".*"
+    }
+]
