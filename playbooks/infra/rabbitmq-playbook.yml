@@ -2,18 +2,16 @@
   - hosts: localhost
     connection: local
     vars:
-      rabbitmq_api_uri: http://localhost:15672/api
-      rabbitmq_login: guest
-      rabbitmq_password: guest
       default_profil: "dev"
 
     tasks:
       - name: Read a json file
         set_fact:
-          vhosts_list: "{{ lookup('file', './json/sys-vhosts.json') }}"
-          exchanges_list:  "{{ lookup('file', './json/sys-exchanges.json') }}"
-          users_list: "{{ lookup('file', './json/users-{{ default_profil }}.json') }}"
-          users_perms_list: "{{ lookup('file', './json/users-perms.json') }}"
+          rabbitmq_conf:  "{{ lookup('file', './json/{{ default_profil }}/rabbitmq-conf.json') }}"
+          exchanges_list:  "{{ lookup('file', './json/{{ default_profil }}/exchanges.json') }}"
+          vhosts_list: "{{ lookup('file', './json/{{ default_profil }}/vhosts.json') }}"
+          users_list: "{{ lookup('file', './json/{{ default_profil }}/users.json') }}"
+          users_perms_list: "{{ lookup('file', './json/{{ default_profil }}/users-perms.json') }}"
 
       - name: What did we read?
         debug:
@@ -25,9 +23,9 @@
 
       - name: Create vhosts
         uri:
-          url: "{{ rabbitmq_api_uri }}/vhosts/{{ item }}"
-          user: "{{ rabbitmq_login }}"
-          password: "{{ rabbitmq_password }}"
+          url: "{{ rabbitmq_conf.rabbitmq_api_uri }}/vhosts/{{ item }}"
+          user: "{{ rabbitmq_conf.rabbitmq_login }}"
+          password: "{{ rabbitmq_conf.rabbitmq_password }}"
           method: PUT
           force_basic_auth: yes
           status_code: 
@@ -37,9 +35,9 @@
 
       - name: Create exchanges
         uri:
-          url: "{{ rabbitmq_api_uri }}/exchanges/{{ item.vhost }}/{{ item.exchange }}"
-          user: "{{ rabbitmq_login }}"
-          password: "{{ rabbitmq_password }}"
+          url: "{{ rabbitmq_conf.rabbitmq_api_uri }}/exchanges/{{ item.vhost }}/{{ item.exchange }}"
+          user: "{{ rabbitmq_conf.rabbitmq_login }}"
+          password: "{{ rabbitmq_conf.rabbitmq_password }}"
           method: PUT
           force_basic_auth: yes
           body_format: json
@@ -53,9 +51,9 @@
 
       - name: Create users
         uri:
-          url: "{{ rabbitmq_api_uri }}/users/{{ item.username }}"
-          user: "{{ rabbitmq_login }}"
-          password: "{{ rabbitmq_password }}"
+          url: "{{ rabbitmq_conf.rabbitmq_api_uri }}/users/{{ item.username }}"
+          user: "{{ rabbitmq_conf.rabbitmq_login }}"
+          password: "{{ rabbitmq_conf.rabbitmq_password }}"
           method: PUT
           force_basic_auth: yes
           body_format: json
@@ -69,9 +67,9 @@
 
       - name: Create users perms
         uri:
-          url: "{{ rabbitmq_api_uri }}/permissions/{{ item.vhost }}/{{ item.username }}"
-          user: "{{ rabbitmq_login }}"
-          password: "{{ rabbitmq_password }}"
+          url: "{{ rabbitmq_conf.rabbitmq_api_uri }}/permissions/{{ item.vhost }}/{{ item.username }}"
+          user: "{{ rabbitmq_conf.rabbitmq_login }}"
+          password: "{{ rabbitmq_conf.rabbitmq_password }}"
           method: PUT
           force_basic_auth: yes
           body_format: json

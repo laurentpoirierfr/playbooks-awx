@@ -1,0 +1,5 @@
+{
+    "rabbitmq_api_uri": "http://localhost:15672/api",
+    "rabbitmq_login": "guest",
+    "rabbitmq_password": "guest"
+}
